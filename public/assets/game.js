@@ -130,7 +130,7 @@ function writeTempValuesInScoreTable(dice) {
     writeTempValueOnOnlyPossibleRaw(dice,playerNumber);
     return;
   }
-  //------------------------------------------------------------
+  
   if (scoreTable[0] === undefined) {
     let onesScore = calculateOnes(dice);
     document.getElementById("ones" + playerNumber).innerHTML = onesScore;
@@ -313,11 +313,6 @@ function calculateEndGameScore() {
 }
 
 
-
-
-
-
-//--------------------------------------------------------------
 function calculateOnes(dice) {
   let score=0;
   for (let i=0;i<dice.length;i++){
