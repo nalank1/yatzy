@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .dice {
+            max-width: 40px;
+            max-height: 40px;
+            border-radius: 10px;
+            transition: all 0.4s linear;
+            z-index: 1000;
+        }
+        #roll {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: transparent;
+            color: whitesmoke;
+            font-weight: bold;
+            background-image: url("button.png");
+            background-size: cover;
+            cursor: pointer;
+        }
+        #roll:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="dice"></div>
+    <button id="roll">Roll</button>
+</body>
+</html>
