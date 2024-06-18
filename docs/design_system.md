@@ -58,3 +58,37 @@ The roll button in the Yatzy game has the following look and feel:
 When the roll button is hovered over, it scales up to 110% of its original size.
 
 You can see the code for the dice in the [`dice.html`](./assets/design_system/dice.html) file.
+
+## Game Components
+
+### Starting a New Game
+
+When a new game starts, all dice positions are reset using the `resetDicePositions` function. This function iterates over each dice element and resets its transform style to "none", which means the dice are not translated or rotated.
+
+### In-Game Play
+
+During the game, players can roll the dice by clicking the roll button. The `changeDiePosition` function is used to change the position and rotation of each dice element. The `changeDiceFaces` function is used to change the face of each dice element.
+
+The roll button is disabled and its opacity is reduced to 0.5 after 3 rolls. This is done in the `rollButton` event listener, which increments the `rollCount` variable each time the button is clicked and checks if it has reached 3.
+
+The `changeDiePosition` function uses a random angle and the `diceRollDirection` variable to determine the translation and rotation of the dice. If it's player one's turn, the dice roll in one direction, and if it's player two's turn, the dice roll in the opposite direction.
+
+The `changeDiceFaces` function adds the "active" class to the dice elements when the `rollCount` is 1, and changes the face of the dice elements that have the "active" class.
+
+### Scoreboard
+
+The scoreboard is updated after each roll using the `writeTempValuesInScoreTable` function. This function writes the temporary values of the dice to the score table. It's called in the `rollButton` event listener when the `counter` variable is 1, which means it's the first roll of the turn.
+
+### End of the Game
+
+The game ends when all players have had their turn. The player with the highest score wins.
+
+### Additional Concepts
+
+#### Header
+
+The header contains the title of the game and the names of the players.
+
+#### Footer
+
+The footer contains the game rules and controls.
