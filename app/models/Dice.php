@@ -15,7 +15,7 @@ class Dice
     const LARGE_STRAIGHT = [2, 3, 4, 5, 6];
 
     /**
-     * Roll constructor.
+     * Dice constructor.
      * @param array $roll
      */
     public function __construct($roll = [])
