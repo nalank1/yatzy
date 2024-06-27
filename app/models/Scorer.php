@@ -23,10 +23,9 @@ class Scorer
             new Rule\FoursRule(),
             new Rule\FivesRule(),
             new Rule\SixesRule(),
-            new Rule\YahtzeeRule(),
+            new Rule\YatzyRule(),
             new Rule\ChanceRule(),
             new Rule\PairRule(),
-            new Rule\ThreeEqualsRule(),
             new Rule\FourEqualsRule(),
             new Rule\SmallStraightRule(),
             new Rule\LargeStraightRule(),
@@ -36,11 +35,11 @@ class Scorer
 
 
     /**
-     * @param $roll Roll
+     * @param $roll Dice
      * @param $category Category
      * @return int
      */
-    public function score(Roll $roll, Category $category)
+    public function score(Dice $roll, Category $category)
     {
         if ($roll->isEmpty()) {
             return 0;
