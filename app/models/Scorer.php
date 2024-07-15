@@ -1,20 +1,14 @@
-<?php
-
 namespace app\models;
 
 use app\models\Rule;
+use app\models\Leaderboard;
 
 class Scorer
 {
-    /**
-     * @var Rule\ScoreRule[]
-     */
     private $rules;
+    private $leaderboard;
 
-    /**
-     * Scorer constructor.
-     */
-    public function __construct()
+    public function __construct(Leaderboard $leaderboard)
     {
         $this->rules = [
             new Rule\OnesRule(),
@@ -31,15 +25,10 @@ class Scorer
             new Rule\LargeStraightRule(),
             new Rule\FullHouseRule(),
         ];
+        $this->leaderboard = $leaderboard;
     }
 
-
-    /**
-     * @param $roll Dice
-     * @param $category Category
-     * @return int
-     */
-    public function score(Dice $roll, Category $category)
+    public function score(Dice $roll, Category $category, $playerName)
     {
         if ($roll->isEmpty()) {
             return 0;
@@ -47,7 +36,9 @@ class Scorer
 
         foreach ($this->rules as $rule) {
             if ($rule->isSupport($category, $roll)) {
-                return $rule->apply($roll);
+                $score = $rule->apply($roll);
+                $this->leaderboard->addScore($playerName, $score);
+                return $score;
             }
         }
 
