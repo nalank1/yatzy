@@ -5,23 +5,18 @@ $GLOBALS["appDir"] = resolve_path("app");
 
 function resolve_path($name)
 {
-    if ($name == ".")
-    {
+    if ($name == ".") {
         $publicRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
         $appRoot = $_SERVER["DOCUMENT_ROOT"];
-    }
-    else if ($_SERVER["DOCUMENT_ROOT"] != "")
-    {
+    } else if ($_SERVER["DOCUMENT_ROOT"] != "") {
         $publicRoot = $_SERVER["DOCUMENT_ROOT"] . "/../$name";
         $appRoot = $_SERVER["DOCUMENT_ROOT"] . "/$name";
-    }
-    else
-    {
+    } else {
         return "../{$name}";
     }
 
     return file_exists($publicRoot) ? realpath($publicRoot) : realpath($appRoot);
-} 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +24,6 @@ function resolve_path($name)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roll the Dice</title>
-    <script src="script.js" defer></script>
 </head>
 <body>
     <div id="output">--</div>
@@ -43,18 +37,21 @@ function resolve_path($name)
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const rollButton = document.getElementById('roll');
+            const output = document.getElementById('output');
+            const leaderboard = document.getElementById('leaderboard');
+
             rollButton.addEventListener('click', async () => {
                 try {
-                    const response = await fetch('roll.php');
+                    const response = await fetch('/api.php?action=roll');
                     const data = await response.json();
-                    
+
                     if (response.ok) {
                         const resultText = `You rolled: ${data.result.join(', ')}<br>
                             Small Straight: ${data.isSmallStraight ? 'Yes' : 'No'}<br>
                             Large Straight: ${data.isLargeStraight ? 'Yes' : 'No'}<br>
                             Full House: ${data.fullHouse}`;
                         
-                        document.getElementById('output').innerHTML = resultText;
+                        output.innerHTML = resultText;
                         fetchLeaderboard(); // Update the leaderboard
                     } else {
                         console.error('Error rolling the dice:', data.message);
@@ -66,10 +63,9 @@ function resolve_path($name)
 
             async function fetchLeaderboard() {
                 try {
-                    const response = await fetch('api.php');
+                    const response = await fetch('/api.php');
                     const data = await response.json();
 
-                    const leaderboard = document.getElementById('leaderboard');
                     leaderboard.innerHTML = '';
 
                     data.leaderboard.forEach(player => {
